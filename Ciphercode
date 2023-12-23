@@ -1,0 +1,53 @@
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+
+using namespace std;
+
+void encode(string message, int shftamt){
+  string encoded_mess= "";
+  for(int i = 0; i < message.length(); i++){
+    if(( message[i] >= 'a' && message[i] <= 'z' ) || ( message[i] >= 'A' && message[i] <= 'Z' )){
+      char a = message[i];
+      char A = toupper(a);
+      int new_a = int(A) + shftamt;
+      if(new_a > 90){
+        new_a -= 26;
+      }
+      encoded_mess += char(new_a);
+    }
+  }
+  
+  int blockCount = 0;
+  for (int i = 0; i < encoded_mess.length(); i += 5) {
+    string block = encoded_mess.substr(i, 5);
+    cout << block << " ";
+
+    blockCount += 1;
+    if (blockCount == 10) {
+      cout << endl;
+      blockCount = 0;
+    }
+  }
+
+  if (blockCount > 0) {
+    cout << endl;
+  }
+ 
+
+  
+}
+
+
+int main(int argc, char *argv[]){
+  int shftamt = atoi(argv[1]);
+  cout<<"Enter a message: "<<endl;
+  string message;
+  getline(cin, message);
+  
+	/*cout<<" This is how you get an integer from the command line and use it  " << 
+	shftamt << endl;*/
+  encode(message, shftamt);
+}
+
+
